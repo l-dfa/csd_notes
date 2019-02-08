@@ -26,9 +26,9 @@ la loro correttezza. Utilizzali *cum grano salis*, e a tuo rischio e pericolo.
 Alla data del 08 feb 2019 ho completato la prima bozza di questo lavoro.
 Non è detto che rispecchi tutte le lezioni tenute dal docente.
 
-Devo completare l'appendice riguardante i concetti generali, ed effettuare le correzioni
-che i lettori vorranno gentilmente comunicare
+L'appendice riguardante i concetti generali deve essere ancora completata.
 
+Ultimo aggiornamento il |today|.
 
 Main Contents
 --------------
@@ -88,6 +88,15 @@ Per economia di stesura, quando il contesto non è ambiguo, possiamo utilizzare
 il corsivo per fare riferimento nel discorso corrente ad elementi algebrici. Ad esempio, 
 se vale :math:`e \in A = \{a, b, c\}`, potremmo riferirci all'elemento *e* usando il corsivo.
 
+Altre notizie
+-----------------
+
+Questa documentazione è stata scritta utilizzando `reStructuredText <http://docutils.sourceforge.net/rst.html>`_
+con `Sphinx <http://www.sphinx-doc.org/en/master/>`_.
+
+Il suo repository è in https://github.com/l-dfa/csd_notes.
+
+Cortesemente, comunicate richieste di correzione aprendo un bug in https://github.com/l-dfa/csd_notes/issues.
   
 Indices and tables
 ==================
