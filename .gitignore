@@ -1,0 +1,11 @@
+__pycache__
+_static
+_templates
+docs/build/*
+docs/backup/*
+venv
+*.DS_Store
+*.lnk
+*.mo
+*.pyc
+*.sqlite3

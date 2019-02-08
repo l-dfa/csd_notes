@@ -1,0 +1,59 @@
+
+.. meta::
+   :language: it
+   :description language=it: appunti di Complex Systems Design - Il processo di progettazione (da completare)
+   :description language=en: notes on Complex Systems Design - Designe process (incomplete)
+   :keywords: Complex Systems Design
+   :author: Luciano De Falco Alfano
+
+
+.. index:: design process
+
+.. _ref_design_process:
+
+Design Process (to enlarge)
+=============================
+
+  Lezione del *2018-11-23*. Prof. *Barbara Re*.
+
+
+.. index:: motivation
+
+.. _ref_motivation:
+
+Motivation
+------------------------
+
+
+.. index:: objective
+
+.. _ref_objective:
+
+Objective
+------------------------
+
+
+.. index:: model and abstraction
+
+.. _ref_model_and_abstraction:
+
+Model and Abstraction
+------------------------
+
+
+.. index:: implementation
+
+.. _ref_implementation:
+
+Implementation
+------------------------
+
+
+.. index:: validation
+
+.. _ref_validation:
+
+Validation
+------------------------
+
+

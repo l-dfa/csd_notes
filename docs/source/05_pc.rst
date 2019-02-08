@@ -1,0 +1,109 @@
+
+.. meta::
+   :language: it
+   :description language=it: Appunti di Complex Systems Design - Sistema Produttore-Consumatore
+   :description language=en: Notes on Complex Systems Design - Producer-Consumer System
+   :keywords: Complex Systems Design, CCS, producer consumer system
+   :author: Luciano De Falco Alfano
+
+.. index:: producer consumer
+
+.. _ref_producer_consumer:
+   
+Producer Consumer
+===================
+
+.. contents:: 
+   :local:
+
+..
+
+  Lezione del *2018-12-21*.
+
+Specifichiamo un sistema di tipo *Produttore-Consumatore*.
+In generale il produttore crea un qualche tipo di informazione, che il consumatore
+riceve.
+
+Ipotizziamo che questo sistema sia in grado di tenere *parcheggiate* due informazioni.
+
+Le azioni permesse sono il *deposito* (:math:`deposit`) dell'informazione e
+il suo *prelievo* (:math:`withdraw`).
+
+.. index:: pc: sequencial specification
+
+.. _ref_pc_sequencial_specification:
+   
+PC: sequencial specification
+-------------------------------
+
+Avremo gli stati:
+
+* nessuna informazione depositata (:math:`ProdCons02`),
+* una informazione depositata (:math:`ProdCons12`),
+* due informazioni depositate (:math:`ProdCons22`).
+
+La gestione degli stati è la seguente.
+
+Senza informazioni depositate, si può solo depositare:
+
+.. math::
+   ProdCons02 = deposit \cdot ProdCons12
+   
+Con una informazione depositata è possibile depositarne un'altra oppure
+prelevare l'informazione presente:
+
+.. math::
+   ProdCons12 = deposit \cdot ProdCons22 + withdraw \cdot ProdCons02
+
+Con due informazioni depositate si può solo prelevare un dato:
+
+.. math::
+   ProdCons22 = withdraw \cdot ProdCons12
+
+Volendo esprimerla come un automa a stati finiti, avremmo la seguente
+rappresentazione:
+
+.. image:: images/pc.*
+   :align: center
+   
+Seguirà una fase di test per verificare se i requisiti hanno qualche problema.
+
+Superata la fase di test andiamo in *refinement*. Ad esempio decidendo 
+di gestire i depositi tramite due buffer a singola capacità.
+
+.. index:: pc: concurrent specification
+
+.. _ref_pc_concurrent_specification:
+   
+PC: concurrent specification
+------------------------------
+
+Per un raffinamento con sistemi concorrenti, ipotizziamo di avere in 
+parallelo: il produttore, il gruppo dei due buffer, il consumatore.
+Quindi sarà:
+
+.. math::
+   PC_{conc,2} = Prod \parallel_{\{ deposit \}} (Buff \parallel Buff) \parallel_{\{ withdraw \}} Cons
+   
+In questo modello, il produttore esegue deposito e diviene nuovamente produttore:
+
+.. math::
+   Prod = deposit \cdot Prod
+   
+Un buffer esegue un deposito, dopo di che deve eseguire un prelievo per poi
+divenire nuovamente buffer:
+
+.. math::
+   Buff = deposit \cdot withdraw \cdot Buff
+   
+Il consumatore esegue il prelievo e poi diviene nuovamente consumatore:
+
+.. math::
+   Cons = withdraw \cdot Cons
+
+Analizzando funzionalmente il comportamento dei due modelli, sequenziale e 
+concorrente, è possibile notare che sono bisimilarmente equivalenti.
+
+L'equivalenza in questione può essere verificata anche formalmente,
+ad esempio utilizzando il tool `Edinburgh Concurrency Workbench <http://homepages.inf.ed.ac.uk/perdita/cwb/>`_.
+
