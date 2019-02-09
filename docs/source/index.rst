@@ -51,6 +51,7 @@ Auxiliary chapters
 .. toctree::
    :maxdepth: 1
    
+   96_cwb
    97_base_concepts
    98_references
    99_todo

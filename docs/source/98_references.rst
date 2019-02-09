@@ -24,8 +24,8 @@ Bibliography
 ---------------
               
 .. [ACFV2005] Luca Aceto, Wan Fokkink, Chris Verhoef;
-             `Structural Operational Semantics <https://www.cs.vu.nl/~wanf/pubs/sos.pdf>`_,
-             Vrije Universiteit Amsterdam.
+              `Structural Operational Semantics <https://www.cs.vu.nl/~wanf/pubs/sos.pdf>`_,
+              Vrije Universiteit Amsterdam.
               
 .. [CHOM1957] Noam Chomsky; 
               `Syntactics Structures <https://www.amazon.it/Syntactic-Structures-Noam-Chomsky/dp/1614278040/ref=sr_1_5?s=english-books&ie=UTF8&qid=1546621071&sr=1-5&keywords=chomsky>`_; 
@@ -76,16 +76,23 @@ Bibliography
 Abbreviations and terms
 ---------------------------
               
-=================   ========================================================
+=================   ============================================================
  Term                Note
-=================   ========================================================
-ACP                 Algebra of communicating Processes
-:math:`Alph`        Alphabet
-BC                  Buffer Controller
-CCS                 a Calculus of Communicating Systems
-CSP                 Communicating Sequential Processes
-FIFO                First In First Out
-LTE                 Labeled Transition System
-LOTOS               Language Of Temporal Ordering Specification
-R.E.                Regular Expression
-=================   ========================================================
+=================   ============================================================
+ACP                  Algebra of communicating Processes
+:math:`Alph`         Alphabet
+BC                   Buffer Controller
+BPMN                 Business Process Model and Notation
+CCS                  a Calculus of Communicating Systems
+CSP                  Communicating Sequential Processes
+CWB                  edinburgh Concurrency WorkBench
+dhcp                 Dynamic Host Configuration Protocol
+eof                  End Of Life
+FIFO                 First In First Out
+LTE                  Labeled Transition System
+LOTOS                Language Of Temporal Ordering Specification
+R.E.                 Regular Expression
+SCCS                 Synchronous Calculus of Communicating Systems [MILN1989]_
+TCCS                 a Temporal Calculus of Communicating Systems
+VM                   Virtual Machine
+=================   ============================================================

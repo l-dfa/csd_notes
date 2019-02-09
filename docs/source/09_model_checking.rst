@@ -6,7 +6,7 @@
    :keywords: Complex Systems Design, model checking
    :author: Luciano De Falco Alfano
 
-.. index:: model checkng
+.. index:: model checking
 
 .. _ref_model_checking:
    

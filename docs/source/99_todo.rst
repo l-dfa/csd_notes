@@ -34,11 +34,12 @@ To do
 Done
 ---------
 
-* *2018-01-06* concetti di base: regular grammars
-* *2018-01-05* concetti di automa: finito, deterministico e non.
+* *2019-01-06* concetti di base: regular grammars
+* *2019-01-05* concetti di automa: finito, deterministico e non.
+* *2019-02-09* + appendice per l'installazione di CWB in CentOS 6
 
-Remarks
---------------
+Remarks about latex math notations
+-------------------------------------
 
 conditional equations with one-sided curly brackets
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
