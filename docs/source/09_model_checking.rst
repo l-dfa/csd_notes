@@ -10,7 +10,7 @@
 
 .. _ref_model_checking:
    
-Model Cheking
+Model Checking
 ===============
 
 .. contents:: 

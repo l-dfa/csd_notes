@@ -43,7 +43,7 @@ Quando una cella è vuota, utilizzamo il simbolo :math:`\bot` (*bottom*) per rim
 che non contiene alcun dato.
 
 Quindi la stringa *s* é: :math:`s \in (V \cup \{ \bot \})^+`. E la sua
-lunghezza è :math:`\lvert s \rvert = N+1`.
+lunghezza è :math:`\lvert s \rvert = N+2`.
 
 Specifichiamo una singola generica cellula *c*, considerandola come un buffer di capacità 1.
 
@@ -112,7 +112,7 @@ potremo definire :math:`c_i = c[\phi_i]`.
 Ora componiamo in parallelo le diverse celle:
 
 .. math::
-   pipe(s) = [(c_0[\phi_0] \parallel_{\sigma_0} \cdots \parallel_{\sigma_{i-1}} c_i[\phi_i] \parallel_{\sigma_i} \cdots \parallel_{\sigma_N} c_{N+1}[\phi_{N+1}])] \setminus \{ \sigma_0 \cdots \sigma_{N+1} \}
+   pipe(s) = [(c_0[\phi_0] \parallel_{\sigma_0} \cdots \parallel_{\sigma_{i-1}} c_i[\phi_i] \parallel_{\sigma_i} \cdots \parallel_{\sigma_N} c_{N+1}[\phi_{N+1}])] \setminus \{ \sigma_0 \cdots \sigma_{N} \}
  
 facendo attenzione che vi sia il vincolo della sincronizzazione rispetto 
 i canali :math:`\sigma_i, 0  \leqslant i  \leqslant N`. Questa condizione
@@ -156,12 +156,12 @@ Per formalizzare questa osservazione, definiamo la funzione di relabeling:
 
 con :math:`\tau` azione nascosta, invisibile all'osseratore esterno.
 
-Appliando questa funzione di relabeling alla pipe, le azioni :math:`\sigma_i`
+Applicando questa funzione di relabeling alla pipe, le azioni :math:`\sigma_i`
 saranno trasformate in :math:`\tau`. Solo *input* e *output* non sono
 rietichettate. Quindi un osservatore esterno che guarda le azioni, vedrà
 solo le sequenze di input e output intervallate con una serie di :math:`\tau`.
 
-Nello stato iniziale avremo *N+2* volte :math:`\bot` (prima inizializzazione dl sistema)
+Nello stato iniziale avremo *N+2* volte :math:`\bot` (prima inizializzazione del sistema)
 
 .. math::
    pipe(\bot \bot \cdots \bot)[\phi]

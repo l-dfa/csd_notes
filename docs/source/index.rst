@@ -10,6 +10,7 @@
    :keywords: Complex Systems Design, Flavio Corradini, Università di Camerino
    :author: Luciano De Falco Alfano
 
+  
    
 Complex Systems Design, appunti 
 ================================
@@ -51,7 +52,8 @@ Auxiliary chapters
 .. toctree::
    :maxdepth: 1
    
-   96_cwb
+   CWB <96_cwb>
+   CWB - New Century <95_cwbnc>
    97_base_concepts
    98_references
    99_todo

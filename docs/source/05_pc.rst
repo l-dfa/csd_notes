@@ -105,5 +105,46 @@ Analizzando funzionalmente il comportamento dei due modelli, sequenziale e
 concorrente, è possibile notare che sono bisimilarmente equivalenti.
 
 L'equivalenza in questione può essere verificata anche formalmente,
-ad esempio utilizzando il tool `Edinburgh Concurrency Workbench <http://homepages.inf.ed.ac.uk/perdita/cwb/>`_.
+ad esempio utilizzando il tool `Edinburgh Concurrency Workbench <http://homepages.inf.ed.ac.uk/perdita/cwb/>`_, 
+o il :ref:`Concurrency WorkBench of the New Century <ref_concurrency_workbench_of_the_new_century>` (CWB-NC).
 
+Ad esempio, utilizzando il CWB-NC, possiamo scrivere la specifica come segue:
+
+.. code::
+
+   ***********************************************************************
+    * ProducerConsumer requirements: PC
+    *    3 states: PC02, PC12, PC22, with 0 / 1 / 2 data of max 2 data
+   ***********************************************************************
+   set Act = {deposit, withdraw}
+   proc PC02 = deposit.PC12
+   proc PC12 = deposit.PC22 + 'withdraw.PC02
+   proc PC22 = 'withdraw.PC12
+   
+mentre possiamo scrivere la modellazione con due buffer paralleli monodimensionali
+così:
+
+.. code::
+
+   ***********************************************************************
+    * Buffer cell model: B
+    *    cicle through in.'out.startagain; buffer is two cells in parallel
+   ***********************************************************************
+   proc B = deposit.'withdraw.B
+   proc Buffer = (B | B)
+   
+un controllo di uguaglianza in bisimulazione di PC02 rispetto Buffer ci dice TRUE:
+
+.. code:: console
+
+   ...> cwb-nc ccs
+   /// omissis
+   cwb-nc> load pc.ccs
+   /// omissis
+   cwb-nc> eq -S bisim PC02 Buffer
+   Building automaton...
+   States: 8
+   Transitions: 14
+   Done building automaton.
+   TRUE
+   /// omissis

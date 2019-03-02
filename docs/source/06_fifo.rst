@@ -49,7 +49,7 @@ Avremo la seguente architettura:
 .. image:: images/fifo.*
    :align: center
 
-dove *fifo(s)* ci indica che abbiamo una capacità di memorizzazione tale
+dove *fifo(s)* ci indica che abbiamo una capacità di memorizzazione 
 tale da poter registrare la stringa *s*.
 
 Inizialmente avremo *fifo(s)* vuota; ovvero avremo memorizzato la stringa vuota

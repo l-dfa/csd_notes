@@ -41,6 +41,8 @@ di parole *L*, sottoinsieme di tutte le possibili parole che si possono
 formare con l'alfabeto *Alph*: 
 :math:`e \mapsto L \subseteq Alph^* \quad Alph = \{a, b, c, \cdots \}`
 
+.. _ref_r_e_by_denotational_semantics:
+
 In *denotational semantics*, ponendo a sinistra la *regular expression* e a destra il suo
 significato, inteso come *set di parole*, ottenuto per induzione. Abbiamo le seguenti:
 
@@ -159,8 +161,8 @@ Osservando le seguenti:
   .. math::
   
      \cdots &  [\![ a ]\!] \cdot  [\![ b + c ]\!] = \\
-            & \{a\} \cdot ([\![ a ]\!] \cup [\![ c ]\!]) = \\
-            & \{a\} \cdot (\{a\} \cup \{c\}) = \\
+            & \{a\} \cdot ([\![ b ]\!] \cup [\![ c ]\!]) = \\
+            & \{a\} \cdot (\{b\} \cup \{c\}) = \\
             & \{a\} \cdot \{ b, c \} = \{ab, ac\}
   
      
@@ -229,7 +231,7 @@ Abbiamo:
 * idempotenza :math:`X + X = X`
 * commutativa :math:`X + Y = Y + X`
 * associativa a sinistra :math:`(X + Y) + Z = X + (Y + Z)`
-* esistenza dello zero
+* esistenza dello zero [#]_
 
   .. math::
   
@@ -379,7 +381,7 @@ Gli *operatori* mostrati possono essere interpretati informalmente come segue.
 * *1* è un *successfull terminal operator*: un sistema che ha concluso
   l'attività con successo.
    
-  Questo  lo *0* indicano uno stop dell'attività, ma con diversi significati:
+  Quindi sia l\ ``'``\ *1* che lo *0* indicano uno stop dell'attività, ma con diversi significati:
   soddisfacimento, o meno, della richiesta.
   
      
@@ -387,7 +389,7 @@ Gli *operatori* mostrati possono essere interpretati informalmente come segue.
   Notiamo che la terminazione con successo è successiva alla esecuzione
   dell'azione *a*.
 * :math:`e_1 + e_2` è la *non deterministic composition*. Un sistema in grado di
-  eseguire le azioni :math:`e_1` **oppure** quelle :math:`e_2`. E' una 
+  eseguire le azioni :math:`e_1` **oppure** quelle :math:`e_2`. E\ ``'`` una 
   *scelta* tra :math:`e_1` ed :math:`e_2`, ma non condizionata da un test
   booleano. La scelta se eseguire l'una o l'altra è determinata dall'ambiente
   esterno. Alcune volte l'ambiente richiederà :math:`e_1`, altre volte :math:`e_2`.
@@ -674,47 +676,42 @@ Quindi la *operational semantics* definisce per ogni termine automi a stati fini
 non deterministici [#]_.
 
 Di seguito diamo l'interpretazione di :math:`\mathcal{L}`. La colonna sx
-indica il numero di riga, la colonna centrale 
-indica il termine in analisi e la relativa regola d'inferenza, la colonna dx [#]_ indica
+indica il numero di riga, la seconda colonna 
+indica il termine in analisi, la terza colonna riporta la relativa regola d'inferenza, 
+la colonna dx [#]_ indica
 la terminazione immediata (con successo) del sistema.
 
-+-----+----------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
-| row | :math:`e \xrightarrow{a} f`                                                                  | :math:`e \surd`                                                     |
-|     |                                                                                              |                                                                     |
-+=====+==============================================================================================+=====================================================================+
-|  1  | 0           no rule                                                                          |                                                                     |
-+-----+----------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
-|  2  | 1           no rule                                                                          | :math:`1 \surd`                                                     |
-+-----+----------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
-|  3  | basic activity *a*                                                                           |                                                                     |
-|     |                                                                                              |                                                                     |
-|     | :math:`\frac{\diagup}{a \xrightarrow{a} 1}`                                                  |                                                                     |
-+-----+----------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
-|  4  | non determinism                                                                              |                                                                     |
-|     |                                                                                              |                                                                     |
-|     | :math:`\frac{e_1 \xrightarrow{a} e_1'}{(e_1 + e_2) \xrightarrow{a} e_1'}`,                   | :math:`\frac{e_1 \surd \, or \, e_2 \surd}{(e_1 + e_2) \surd}`      |
-|     |                                                                                              |                                                                     |
-|     | :math:`\frac{e_2 \xrightarrow{a} e_2'}{(e_1 + e_2) \xrightarrow{a} e_2'}`                    |                                                                     |
-+-----+----------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
-|  5  | .. index:: operational semantics sequential composition                                      |                                                                     |
-|     |                                                                                              |                                                                     |
-|     | .. _ref_operational_semantics_sequential_composition:                                        |                                                                     |
-|     |                                                                                              |                                                                     |
-|     | sequential composition                                                                       |                                                                     |
-|     |                                                                                              |                                                                     |
-|     | .. math::                                                                                    | :math:`\frac{e_1 \surd \, and \, e_2 \surd}{(e_1 \cdot e_2) \surd}` |
-|     |      \frac{e_1 \xrightarrow{a} e_1'}{(e_1 \cdot e_2) \xrightarrow{a} (e_1' \cdot e_2)}       |                                                                     |
-|     |                                                                                              |                                                                     |
-|     | .. math::                                                                                    |                                                                     |
-|     |      \frac{e_1 \surd \, , \, e_2 \xrightarrow{a} e_2'}{(e_1 \cdot e_2) \xrightarrow{a} e_2'} |                                                                     |
-|     |                                                                                              |                                                                     |
-+-----+----------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
-|  6  | star operator                                                                                |                                                                     |
-|     |                                                                                              |                                                                     |
-|     | :math:`\frac{e \xrightarrow{a} e'}{e^* \xrightarrow{a} (e' \cdot e^*)}`                      | :math:`\frac{\diagup}{e^* \surd}`                                   |
-|     |                                                                                              |                                                                     |
-+-----+----------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
-
++-----+---------------------------+-------------------------------------------------------------------------------------------------+----------------------------------------------------------------------+
+| row | operator                  | rule                                                                                            | terminazione immediata                                               |
++=====+===========================+=================================================================================================+======================================================================+
+|  1  | :math:`0`                 | no rule                                                                                         |                                                                      |
++-----+---------------------------+-------------------------------------------------------------------------------------------------+----------------------------------------------------------------------+
+|  2  | :math:`1`                 | no rule                                                                                         | :math:`1 \surd`                                                      |
++-----+---------------------------+-------------------------------------------------------------------------------------------------+----------------------------------------------------------------------+
+|     | basic activity            |                                                                                                 |                                                                      |
+|     |                           |                                                                                                 |                                                                      |
+|  3  | :math:`a`                 | :math:`\frac{\diagup}{a \xrightarrow{a} 1}`                                                     |                                                                      |
++-----+---------------------------+-------------------------------------------------------------------------------------------------+----------------------------------------------------------------------+
+|  4  | non deterministic choice  |                                                                                                 |                                                                      |
+|     |                           | :math:`\frac{e_1 \xrightarrow{a} e_1'}{(e_1 + e_2) \xrightarrow{a} e_1'}`,                      | :math:`\frac{e_1 \surd \, or \, e_2 \surd}{(e_1 + e_2) \surd}`       |
+|     | :math:`e_1 + e_2`         |                                                                                                 |                                                                      |
+|     |                           | :math:`\frac{e_2 \xrightarrow{a} e_2'}{(e_1 + e_2) \xrightarrow{a} e_2'}`                       |                                                                      |
++-----+---------------------------+-------------------------------------------------------------------------------------------------+----------------------------------------------------------------------+
+|     |                           |                                                                                                 |                                                                      |
+|  5  | sequential composition    | .. index:: operational semantics sequential composition                                         |                                                                      |
+|     |                           |                                                                                                 |  :math:`\frac{e_1 \surd \, and \, e_2 \surd}{(e_1 \cdot e_2) \surd}` |
+|     | :math:`e_1 \cdot e_2`     | .. _ref_operational_semantics_sequential_composition:                                           |                                                                      |
+|     |                           |                                                                                                 |                                                                      |
+|     |                           | :math:`\frac{e_1 \xrightarrow{a} e_1'}{(e_1 \cdot e_2) \xrightarrow{a} (e_1' \cdot e_2)}`       |                                                                      |
+|     |                           |                                                                                                 |                                                                      |
+|     |                           | :math:`\frac{e_1 \surd \, , \, e_2 \xrightarrow{a} e_2'}{(e_1 \cdot e_2) \xrightarrow{a} e_2'}` |                                                                      |
+|     |                           |                                                                                                 |                                                                      |
++-----+---------------------------+-------------------------------------------------------------------------------------------------+----------------------------------------------------------------------+
+|  6  | Kleene's star             |                                                                                                 |                                                                      |
+|     |                           | :math:`\frac{e \xrightarrow{a} e'}{e^* \xrightarrow{a} (e' \cdot e^*)}`                         | :math:`\frac{\diagup}{e^* \surd}`                                    |
+|     | :math:`e^*`               |                                                                                                 |                                                                      |
++-----+---------------------------+-------------------------------------------------------------------------------------------------+----------------------------------------------------------------------+
+   
 La prima riga della precedente tabella rappresenta un sistema in stato *0*, ovvero in **deadlock**, quindi non ha terminazione immediata.
 
 La seconda riga rappresenta un sistema in stato *1*, ovvero in terminazione immediata con successo.
@@ -833,7 +830,7 @@ Perché per ogni stato del sistema si analizzano tutte le possibili risposte che
 si possono ottenere in quello stato esercitanto le azioni possibili in esso.
 A differenza dell'analisi sintattica, che analizza
 una sola risposta conseguenza di una azione determinata.
-   
+      
 -------
 
 .. [#] Memo. Grammatica regolare: 
@@ -849,6 +846,11 @@ una sola risposta conseguenza di una azione determinata.
 
 .. [#] Per questo si parla di language (o trace) equivalence.
 
+.. [#] Per comprendere :math:`x \cdot 0 = 0`, si consideri la definizione di 
+   concatenazione: :math:`L_1 \cdot L_2 = \{uv \vert u \in L_1 \; \mathbf{and} \; v \in L_2\}`.
+   Ma se :math:`L_2` è l'insieme vuoto (si ricordi la definizione di 0), non esiste
+   alcun :math:`v \in L_2`. Quindi l'operatore *and* è sempre *false* e 
+   :math:`x \cdot 0` è l'insieme vuoto, ovvero 0.
 .. [#] Ammesso sia possibile.
 
 .. [#] Le etichette delle transizioni tra gli stati sono relative alle attività.

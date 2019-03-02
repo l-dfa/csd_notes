@@ -16,12 +16,12 @@ References
 =============
 
 
-.. index:: bibliografy
+.. commento .. index:: bibliografy
 
-.. _ref_bibliografy:
-
-Bibliography
----------------
+   .. _ref_bibliografy:
+   
+   Bibliography
+   ---------------
               
 .. [ACFV2005] Luca Aceto, Wan Fokkink, Chris Verhoef;
               `Structural Operational Semantics <https://www.cs.vu.nl/~wanf/pubs/sos.pdf>`_,
@@ -38,6 +38,10 @@ Bibliography
 .. [GASP1977] Ida Cattaneo Gasparini;
               Strutture algebriche, operatori lineari;
               1977, Libreria Eredi Virgilio Veschi.
+              
+.. [HENN2008] Matthew Hennessy;
+              `Reactive Systems: How to use the Concurrency Workbench <https://www.scss.tcd.ie/Matthew.Hennessy/rsexternal/notes/HowTo.pdf>`_;
+              2008, Trinity College Dublin, The University of Dublin.
               
 .. [MILN1989] Robin Milner;
               Communication and concurrency;
@@ -67,7 +71,30 @@ Bibliography
              
 
 .. [WIKI2019b] Wikipedia `nondeterministic finite automaton <https://en.wikipedia.org/wiki/Nondeterministic_finite_automaton>`_.
+
+.. [WIKI2019c] Wikipedia `Semantics (computer science) <https://en.wikipedia.org/wiki/Semantics_(computer_science)>`_.
+
+.. [WIKI2019d] Wikipedia `Axiomatic semantics <https://en.wikipedia.org/wiki/Axiomatic_semantics>`_.
+
+.. [WIKI2019e] Wikipedia `Denotational_semantics <https://en.wikipedia.org/wiki/Denotational_semantics>`_.
+
+.. [WIKI2019f] Wikipedia `Operational_semantics <https://en.wikipedia.org/wiki/Operational_semantics>`_.
+
+.. [WIKI2019g] Wikipedia `Structural operational semantics link <https://en.wikipedia.org/wiki/Operational_semantics#Structural_operational_semantics>`_.
+
+.. [WIKI2019h] Wikipedia `Natural semantics <https://en.wikipedia.org/wiki/Operational_semantics#Natural_semantics>`_.
               
+.. [EDIS1998]  Tom Verhoeff;
+               `Encyclopaedia of Delay-Insensitive Systems: RGDA Arbiter <http://edis.win.tue.nl/sys/rgda-arbiter/index.html>`_;
+               nov. 1998.
+               
+.. [SABL1994]  Ken Stevens, John Aldwinckle, Graham Birtwistle, Ying Liu;
+               `Designing parallel specifications in CCS <http://www.kdstevens.com/stevens/docs/stevens93.pdf>`_;
+                Canadian Conference on Electrical and Computer Engineering, Vol II pp 983-986, September 1993. 
+
+.. [LABS1993]  Ying Liu, John Aldwinckle, Graham Birtwistle, and Ken Stevens.
+               `Testing the Consequences of Specifications in the Modal-mu Calculus <http://www.kdstevens.com/stevens/docs/liu93.pdf>`_;
+               Canadian Conference on Electrical and Computer Engineering Vol II pp 987-990, September 1993.  
 
 .. index:: abbreviations and terms
 
@@ -82,17 +109,22 @@ Abbreviations and terms
 ACP                  Algebra of communicating Processes
 :math:`Alph`         Alphabet
 BC                   Buffer Controller
+BNF                  Backus-Naur Form [SLKU1995]_ pag.3
 BPMN                 Business Process Model and Notation
 CCS                  a Calculus of Communicating Systems
 CSP                  Communicating Sequential Processes
 CWB                  edinburgh Concurrency WorkBench
+CWB-NC               Concurrency WorkBench of the New Century
 dhcp                 Dynamic Host Configuration Protocol
 eof                  End Of Life
 FIFO                 First In First Out
+MS                   Microsoft
 LTE                  Labeled Transition System
 LOTOS                Language Of Temporal Ordering Specification
 R.E.                 Regular Expression
+RGDA                 Request Grant Done Acknowledge arbiter [EDIS1998]_
 SCCS                 Synchronous Calculus of Communicating Systems [MILN1989]_
+SOS                  Structural Operational Semantics [ACFV2005]_, [PLOT1981]_
 TCCS                 a Temporal Calculus of Communicating Systems
 VM                   Virtual Machine
 =================   ============================================================

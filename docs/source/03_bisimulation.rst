@@ -91,21 +91,25 @@ relativa specifica d'implementazione recita: "usa due componenti in parallelo, u
 Durante le attività di *refinement* i vari passaggi devono dare luogo
 a sistemi *equivalenti*: :math:`P_{spec} \sim P_{impl}`.
 
-Per controllare ciò avremo due tipi di controlli:
+Per verificare ciò avremo due tipi di controlli:
 
 * *model checking*, ovvero data una proprietà del sistema, deve essere
   verificata con entrambi i modelli :math:`P \models \varphi`;
 * *equivalence checking*, ovvero si verifica l'equivalenza delle due 
   specifiche da confrontare: :math:`P_1 \sim P_2`;
 
-Da cui il seguente (importante) teorema. "Per ogni sistema :math:`P_1` e :math:`P_1`,
+Da cui il seguente (importante) teorema. "Per ogni sistema :math:`P_1` e :math:`P_2`,
 per ogni attributo :math:`\varphi` nel linguaggio della formula, i due sistemi 
 sono equivalenti *iff* per ogni attributo :math:`P_1` soddisfa l'attributo
 *iff* :math:`P_2` soddisfa lo stesso attributo". Formalmente:
 
+..
+  ex
+  \forall P_1, P_2, \forall \varphi \in L_f \quad P_1 \sim P_2 \; \text{iff} \; \forall \varphi \; (P_1 \models \varphi \; \text{iff} \; P_2 \models \varphi)
+   
 .. math::
 
-   \forall P_1, P_2, \forall \varphi \in L_f \quad P_1 \sim P_2 \; \text{iff} \; \forall \varphi \; (P_1 \models \varphi \; \text{iff} \; P_2 \models \varphi)
+   P_1 \sim P_2 \; \text{iff} \; \forall \varphi \in L_f \; (P_1 \models \varphi \; \text{iff} \; P_2 \models \varphi)
 
 Questo teorema afferma che due sistemi sono equivalenti se e solo se soddisfano
 la stessa classe di formule [#]_.
@@ -168,7 +172,7 @@ proprietà simmetrica; è una relazione di preordine [#]_. Valgono le proprietà
 * e transitiva ("se *P* simula *Q* e *Q* simula *R*, allora *P* simula *R*": 
   :math:`(P \overset{\sqsupset}{\sim} Q \wedge Q \overset{\sqsupset}{\sim} R) \Rightarrow P \overset{\sqsupset}{\sim} R`)
 
-Se si aggiunge la proprietà riflessiva, allora otteniamo il concetto di equivalenza
+Se si aggiunge la proprietà simmetrica, allora otteniamo il concetto di equivalenza
 basata su simulazione [#]_:
 
 .. math::

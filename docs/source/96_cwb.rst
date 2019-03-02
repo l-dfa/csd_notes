@@ -10,7 +10,7 @@
 
 .. _ref_edinburgh_concurrency_workbench:
    
-Concurrency Workbench
+Edinburgh Concurrency Workbench
 ================================
 
 .. contents:: 
@@ -27,7 +27,13 @@ Purtroppo questa versione non è più supportata dal 2017. Di conseguenza nel
 seguito effettueremo una installazione su CentOS 6, il cui supporto terminerà nel 
 nov.2020.
 
-Supporremo di utilizzare una macchina MS Windows. Per questo motivo il processo d'installazione
+E\ ``'`` importante sapere che questo programma è stato successivamente ripreso
+dalla Università di Stato del North Carolina, e dopo varie vicissitudini, ne
+è ora disponibile anche una versione per MS Windows. Per chi volesse provarla, 
+ne parliamo in :ref:`Concurrency Workbench of the New Century <ref_concurrency_workbench_of_the_new_century>`.
+
+Riprendendo con la procedura d'installazione del CWB originale, 
+supporremo di utilizzare una macchina MS Windows. Per questo motivo il processo d'installazione
 prevede tre aree d'intervento:
 
 1. installazione ed uso del virtualizzatore `Oracle VirtualBox <https://www.virtualbox.org/wiki/Downloads>`_;
@@ -63,6 +69,15 @@ A questo punto avviare *Oracle VM VirtualBox*, creare una nuova macchina virtual
    
 accettare i default per i parametri successivi. Verrà creata una macchina virtuale vuota.
 
+Se si vorranno installare le guest additions, per condividere directory tra host e guest:
+
+* scaricarle `dal sito di Oracle <https://download.virtualbox.org/virtualbox/5.2.26/Oracle_VM_VirtualBox_Extension_Pack-5.2.26.vbox-extpack>`_;
+* e installarle in *Oracle VM VirtualBox* (voci di menù: **File** / **Preferenze** / **Estensioni**,
+  premere il pulsante + e selezionare il file 
+  scaricato: ``Oracle_VM_VirtualBox_Extension_Pack-5.2.26.vbox-extpack``).
+
+
+
 .. index:: installazione di centos 6
 
 .. _ref_installazione_di_centos_6:
@@ -76,7 +91,7 @@ Creata la macchina virtuale vuota, avviarla (selezionarla, quindi eseguire le vo
 menù: **Macchina** / **Avvia** / **Avvio Normale**).
 
 All'avvio verrà richiesta la ISO di bootstrap, similmente a quanto mostrato 
-qui sotto:
+qui sotto [#]_:
 
 .. image:: images/new_vm_2.png
    :align: center
@@ -106,9 +121,9 @@ Prima di tutto controllare la mappatura della tastiera. Se è ok, bene. Altrimen
 .. code:: console
 
    vi /etc/sysconfig/keyboard
-     # modificare le chiavi KEYTABLE e LAYOUT secondo il tipo della propria tastiera
-     # ad esempio: KEYTABLE="it"
-   init 6       # riavvia la VM
+     # modify the following keys: KEYTABLE and LAYOUT, referencing your keyboard type
+     # for example: KEYTABLE="it"
+   init 6       # reboot VM
    
 Dopo di che configurare la rete, ad esempio via dhcp, come segue:
 
@@ -121,6 +136,43 @@ Dopo di che configurare la rete, ad esempio via dhcp, come segue:
      #   BOOTPROTO=dhcp
    service restart network
    ifconfig eth0      # check inet addr
+
+Ora un minimo di configurazione generale:
+
+.. code:: console
+
+   # login using ssh client to previous inet addr
+   yum update                                         # on feb.2019 this loads kernel 0:2.6.32 el6.x86-64
+   yum install vim                                    # for my comfort
+   yum install wget                                   # to download from web
+   
+Se si progetta di utilizzare una directory condivisa tra sistema host e 
+guest, eseguire i seguenti comandi:
+
+.. code:: console
+   
+   # use the following cmds only if you wish to use the guest extensions (to share directories)
+   yum --enablerepo=extras install epel-release       # we'll need the extra repository ...
+   yum install dkms                                   #   ... to load more easily a compiled new kernel
+   yum groupinstall "Development Tools"               #       and dev.tools (c compiler, include files ...)
+   mkdir /mnt/cdrom                                   # create a dir to mount cdrom
+   mkdir /mnt/shared                                  # create a dir to mount shared directory
+   mount -t iso9660 /dev/scd0 /mnt/cdrom              # mount cdrom (it must contain the VBoxLinuxAdditions iso file)
+   sh /mnt/cdrom/VBoxLinuxAdditions.run               # execute the VBoxLinuxAdditions installation on guest
+   init 6                                             # system reboot
+   
+sempre in caso di directory condivisa, creare il file ``/etc/profile.d/shared.sh`` per effettuare la mount 
+della directory condivisa all'avvio del sistema:
+
+.. code:: console
+
+   vim /etc/profile.d/share.sh                        # must signal "new file"; this is to mount the shared directory at system startup;
+   # add the next line in the file (whitout #)
+   # mount -t vboxsf VirtualBox_Shared /mnt/shared      # if you have in host the directory VirtualBox_Shared configured using VirtualBox Manager
+                                                        #   ... Macchina / Impostazioni / cartelle condivise / pulsante + / ...
+   init 6
+   touch /mnt/shared/pippo.txt                          # create pippo.txt in /mnt/shared; you'll see it in guest using "ls /mnt/shared"
+                                                        # ... and in host using "esplora file" browsing to VirtualBox_Shared
 
    
 .. index:: installazione di cwb nella vm
@@ -135,13 +187,6 @@ attività:
 
 .. code:: console
 
-   # login using ssh client to previous inet addr
-   yum update                                         # on feb.2019 this loads kernel 0:2.6.32 el6.x86-64
-   yum install vim                                    # for my comfort
-   yum install wget                                   # to download from web
-   yum --enablerepo=extras install epel-release       # we'll need the extra repository ...
-   yum install dkms                                   #   ... to load more easily a compiled new kernel
-   yum groupinstall "Development Tools"               #       and dev.tools (c compiler, include files ...)
    wget http://homepages.inf.ed.ac.uk/perdita/cwb/CWBEXPORTDIR/xccscwb.x86-linux.gz   # getting the intel+linux CWB image
    yum install glibc-2.12-1.212.el6.i686              # we need this one because we work in centos 6 (ver.5 is no more supported), and CWB uses it
    gunzip xccscwb.x86-linux.gz                        # decompressing the archive (NOTE: this command deletes the compressed archive)
@@ -236,6 +281,45 @@ Qui di seguito un esempio di avvio di WCB e la richiesta di help dei comandi:
    Quitting: user said so
    [root@localhost ~]#
    
+La manualistica è disponibile presso questo link: http://homepages.inf.ed.ac.uk/perdita/cwb/doc/,
+in particolare si faccia riferimento a http://homepages.inf.ed.ac.uk/perdita/cwb/doc/manual.pdf.
+   
+   
+.. index:: CWB list of more used commands
+
+.. _ref_cwb_list_more_used_commands:
+   
+CWB list of more used commands
+--------------------------------
+
+Controllo::
+
+   checkprop: model-checking: does an agent satisfy a formula?
+   clear: removes all bindings (a fresh start)
+   cong: are two agents observationally congruent (equal)?
+   deadlocks: find dead- or live-locked states and traces leading to them
+   dfstrong: find a strong HML formula distinguishing two agents
+   help: provide on-line help
+   init: find the observable actions an agent can perform immediately
+   input: execute the CWB commands in the given file
+   output: control where CWB output is written
+   print: show the definitions of all identifiers
+   quit: terminates the workbench session
+   sim: simulate an agent interactively
+
+Da provare::
+   
+   dftrace: find a trace distinguishing two agents
+   dfweak: find a weak HML formula distinguishing two agents
+   
+Definizione dei processi::
+
+   agent: change (or show) the definition of an agent identifier
+   set: change (or show) the definition of a set identifier
+   relabel: change (or show) the definition of a relabelling identifier
+   prop: change (or show) the definition of a proposition identifier
+   
+   
    
 ---------------------
 
@@ -244,3 +328,8 @@ Qui di seguito un esempio di avvio di WCB e la richiesta di help dei comandi:
    non viene richiesto canone di manutenzione per l'utilizzo del sistema.
    Allo stato attuale il progetto pubblica e manutiene le verioni 6 e 7.
    
+.. [#] In figura appare selezionata la ISO di *CentOS 7*. **Invece**
+   queste note sono relative a *CentOS 6* (alcuni comandi, ad es. quelli
+   per la gestione dei servizi, sono cambiati tra le due diverse versioni).
+   Se si intendono eseguire i comandi qui indicati, si scarichi (come indicato)
+   la ISO di *CentOS 6*, e in questa finestra di dialogo la si selezioni.

@@ -139,7 +139,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (master_doc, 'csd_appunti.tex', 'Complex systems design: appunti',
-     'luciano defalco alfano', 'manual'),
+     'luciano defalco alfano', 'manual', True),
 ]
 
 

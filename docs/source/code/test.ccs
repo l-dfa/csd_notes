@@ -1,0 +1,10 @@
+proc A = A0
+proc A0 = in.A + 'out.A
+
+proc Sys = A[tau/in]
+
+********************************************************************
+agent A = A0;
+agent A0 = in.A + 'out.A;
+
+agent Sys = A[tau/in];

@@ -1,0 +1,15 @@
+***********************************************************************
+ * ProducerConsumer requirements: PC
+ *    3 states: PC02, PC12, PC22, with 0 / 1 / 2 data of max 2 data
+***********************************************************************
+set Act = {deposit, withdraw}
+proc PC02 = deposit.PC12
+proc PC12 = deposit.PC22 + 'withdraw.PC02
+proc PC22 = 'withdraw.PC12
+
+***********************************************************************
+ * Buffer cell model: B
+ *    cicle through in.'out.startagain; buffer is two cells in parallel
+***********************************************************************
+proc B = deposit.'withdraw.B
+proc Buffer = (B | B)

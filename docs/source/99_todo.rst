@@ -19,12 +19,8 @@ To do & remarks
 To do
 -------
 
-* concetti di base: context-sensitive grammars
-* concetti di base: context-free grammars
 * che significa: (reg.exp. sono) finite, complete, decidibili
   (https://en.wikipedia.org/wiki/Decidability_(logic)).
-* structural operational semantics
-* denotational semantics
 * formal logic
 * propositional logic
 * first order logic
@@ -34,9 +30,15 @@ To do
 Done
 ---------
 
-* *2019-01-06* concetti di base: regular grammars
-* *2019-01-05* concetti di automa: finito, deterministico e non.
+* *2019-02-21* chg producer consumer: + bisimilar equivalence di PC e Buffer; correcting
+  typoes here and there
+* *2019-02-14* chg concetti di base: + context-sensitive grammars, + context-free grammars
+* *2019-02-14* chg concetti di base: + semantics
+* *2019-02-14* chg concetti di base: + structural operational semantics, denotational semantics
+* *2019-02-13* + appendice per l'installazione di CWB_NC in MS Windows
 * *2019-02-09* + appendice per l'installazione di CWB in CentOS 6
+* *2019-01-06* chg concetti di base: regular grammars
+* *2019-01-05* chg concetti di base: automa finito, deterministico e non.
 
 Remarks about latex math notations
 -------------------------------------

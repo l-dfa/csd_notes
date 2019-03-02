@@ -47,7 +47,7 @@ Per fare ciò, ad un determinato istante, ci servono:
 Si preleva utilizzando l'indice *i*, mentre si inserisce un nuovo dato
 usando l'indice :math:`(i+m) mod (N+2)`.
 L'uso della aritmetica modulo *N+2* è necessario per riutilizzare
-le celle in testa al lbuffer quando l'indice per registrare supera 
+le celle in testa al buffer quando l'indice per registrare supera 
 la capacità del buffer (:math:`N+2`).
 
 La seguente immagine da\ ``'`` una idea della situazione:
@@ -61,11 +61,11 @@ in :math:`c_2`, e che i dati validi sono nelle celle da :math:`c_2` a :math:`c_{
 avesse capacità complessiva 12, il dato più giovane sarebbe in :math:`(3+10) mod (12) = 1`
 ovvero :math:`c_0`.
 
-Ad esempio, con un buffer di 3 celle (:math:`N=1`) possiamo avere la seguente sequenza
+Ad esempio, con un buffer di 3 celle (:math:`N=1`) possiamo avere questa sequenza
 di eventi:
 
 ==============   ===================   =======   =========   ================   ================   ================
- time             action                 i         m          1: :math:`c_0`     2: :math:`c_1`     3: :math:`c_3` 
+ time             action                 i         m          1: :math:`c_0`     2: :math:`c_1`     3: :math:`c_2` 
 ==============   ===================   =======   =========   ================   ================   ================
  :math:`t_0`                            0         0
  :math:`t_1`       in(0)                1         1            0
@@ -78,13 +78,13 @@ di eventi:
 
 Inizialmente (:math:`t_0`) il buffer sarà vuoto. Di conseguenza :math:`i = 0` e :math:`m = 0`.
 
-Se inseriamo uno *0*, la posizione *i* punterà all'inizio del buffer, mentre *m*
+Se inseriamo uno *0*, (riga :math:`t_1`) la posizione *i* punterà all'inizio del buffer, mentre *m*
 assumerà il valore *1* (c'è un dato valido nel buffer).
 
-Alle righe :math:`t_1` e :math:`t_2` osserviamo l'inserimento di due dati *1*.
+Alle righe :math:`t_2` e :math:`t_3` osserviamo l'inserimento di due dati *1*.
 A questo punto il buffer è pieno; possiamo solo prelevare.
 
-In :math:`t_3` preleviamo il dato più anziano: il primo *0* inserito, dalla posizione *i=1*. Di conseguenza
+In :math:`t_4` preleviamo il dato più anziano: il primo *0* inserito, dalla posizione *i=1*. Di conseguenza
 diviene *i=2* perché il dato successivo diventa il più anziano, e *m=2* perché
 avendo prelevato un dato ora ne abbiamo solo due validi nel buffer.
 
@@ -162,7 +162,7 @@ se in output.
    Le operazioni possibili sono: inserimento di un dato, o richiesta di un dato:
    
    .. math::
-      BC(\bot, \bot, i, m) =  \sum_{d \in V} in(d) \cdot BC(d, \bot, i, m) + \sum{a \in V} \rho_i(a) \cdot BC(\bot, a, (i+1) \,mod\, N, m-1)
+      BC(\bot, \bot, i, m) =  \sum_{d \in V} in(d) \cdot BC(d, \bot, i, m) + \sum_{a \in V} \rho_i(a) \cdot BC(\bot, a, (i+1) \,mod\, N, m-1)
       
    La prima parte dell'espressione è analoga al punto (1.), ovvero dato *d* entrato nel registro 
    di input del *BC*.
@@ -180,7 +180,7 @@ se in output.
    In questa condizione dobbiamo trasmettere il dato all'array:
 
    .. math::
-      BC(d, \bot, i, m) =  \omega_i(d) \cdot BC(\bot, \bot, i, 1)
+      BC(d, \bot, i, 0) =  \omega_i(d) \cdot BC(\bot, \bot, i, 1)
       
    Quindi si svuota il registro di input del *BC*, e il numero di elementi
    validi si incrementa di 1. Il dato *d* viene messo nell'elemento alla
@@ -189,13 +189,13 @@ se in output.
 
 4. **Buffer controller con input, con dati validi e spazio libero**: :math:`BC( d, \bot, i, m)`.
    Se :math:`0 < m < N`, ovvero vi è spazio libero nel buffer, e definendo
-   :math:`J = (i+n) \, mod \, N` la posizione dove mettere il dato.
+   :math:`J = (i+m) \, mod \, N` la posizione dove mettere il dato.
    
    Possiamo fare due cose: mettere il dato in input nel buffer, oppure prepararci
    ad un output caricando il registro di output:
    
    .. math::
-      BC(d, \bot, i, m) = \omega_j(d) \cdot BC(\bot, \bot, i, m+1) + \sum{a \in V} \rho_i(a) \cdot BC(d, a, (i+1) \,mod\, N, m-1)
+      BC(d, \bot, i, m) = \omega_j(d) \cdot BC(\bot, \bot, i, m+1) + \sum_{a \in V} \rho_i(a) \cdot BC(d, a, (i+1) \,mod\, N, m-1)
 
    La prima parte dell'espressione mostra il passaggio del dato in input dal registro di *BC* a
    al buffer. Quindi i dati validi si incrementano di 1 (*m+1*) ed *i* non cambia.
@@ -230,7 +230,7 @@ se in output.
    
 7. **Buffer controller con entrambi i registri caricati**: :math:`BC( d, a, i, m)`.
    Se :math:`0 < m < N`, ovvero vi è spazio libero nel buffer, e definendo
-   :math:`J = (i+n) \, mod \, N` la posizione dove mettere il dato.
+   :math:`J = (i+m) \, mod \, N` la posizione dove mettere il dato.
 
    Possiamo passare l'input al buffer, oppure effettuare l'output del relativo registro:
    
@@ -265,11 +265,11 @@ La modellazione in parallelo delle celle del buffer può essere la seguente:
 dove :math:`s = s_0 \, s_1 \, \cdots s_{N-1}`. Inoltre il buffer complessivo sarà:
 
 .. math::
-    Buff(s, x, y, i, m) = (BC(x, y, i, m) \parallel_B Mem(s)) \, \diagup \, B
+    Buff(s, x, y, i, m) = (BC(x, y, i, m) \parallel_B Mem(s)) \, \diagdown \, B
     
 con :math:`B = \{ \omega_0, \rho_0, \omega_1, \rho_1, \cdots \omega_{N-1}, \rho_{N-1} \}`.
 Quindi il *buffer controller* lavora in parallelo con l'array delle celle del buffer,
-e i due sottosistemi si sincronizzano tramite i segnali che formano l'inseme 
+e i due sottosistemi si sincronizzano tramite i segnali che formano l'insieme 
 *B* delle azioni di sincronizzazione.
 
 Notiamo che abbiamo espresso il relabeling sulle azioni di sincronizzazione [#]_

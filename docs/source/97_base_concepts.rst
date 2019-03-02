@@ -35,8 +35,8 @@ richiede l'individuazione di tre componenti:
 
 * la **sintassi**, ovvero come combinare i simboli per creare frasi 
   *accettabili* (**nota**: accettabili, non significative) per il linguaggio;
-* la **semantica**, che individua il significato associato alle frasi
-  sintatticamente valide;
+* la **semantica** (vedi il :ref:`capitolo relativo <ref_semantics>`), che individua
+  il significato associato alle frasi sintatticamente valide;
 * la **pragmatica**, ovvero gli aspetti del linguaggio che coinvolgono
   l'utente; ad esempio l'accettabilità di una frase in relazione alla
   sensibilità dell'utente (si pensi al turpiloquio o alla blasfemia).
@@ -99,16 +99,15 @@ Questi concetti sono stati formalizzati originariamente da Noam Chomsky
 Lo stesso N. Chomsky ha classificato le grammatiche secondo alcune caratteristiche 
 delle loro regole, definendo le seguenti classi ([SLKU1995]_ pag.3, 4):
 
-* *type 0* o grammatiche **senza restrizioni** (unrestricted grammars);
-* *type 1*, grammatiche **sensibili al contesto** (context-sensitive grammars);
-* *type 2*, grammatiche **libere dal contesto** (context-free grammars);
-* *type 3*, grammatiche **regolari** (regular grammars).
+* *type 0* o grammatiche **senza restrizioni** (*unrestricted grammars*);
+* *type 1*, grammatiche **sensibili al contesto** (*context-sensitive grammars*);
+* *type 2*, grammatiche **libere dal contesto** (*context-free grammars*);
+* *type 3*, grammatiche **regolari** (*regular grammars*).
 
 Le grammatiche predette vanno dal tipo più generale (le *type 0*) a quello
 via via più specifico: le *type 3* sono le più restrittive.
 
 
-  
 .. index:: unrestricted grammars
 
 .. _ref_unrestricted_grammars:
@@ -133,7 +132,16 @@ dove le lettere *a* e *b* sono terminali, mentre *<qualcosa>* e
 Context-sensitive grammars
 -----------------------------
 
-.. commento
+Se aggiungiamo la condizione che la parte destra della produzione
+contenga un numero di simboli uguale o superiore al numero di 
+simboli nella parte sinistra, abbiamo una *context-sensitive grammar*. Ad esempio:
+
+    <qualcosa> b ::= b <qualcosa>
+    
+Si possono avere anche regole del tipo: :math:`'\alpha <\negthickspace B \negthickspace > \gamma ::= \alpha \beta \gamma'`
+
+L'appellativo *context-sensitive* deriva dal fatto che la sostituzione di un simbolo non terminale
+tramite la regola di produzione, dipende dai simboli circostanti.
 
   
 .. index:: context-free grammars
@@ -143,7 +151,17 @@ Context-sensitive grammars
 Context-free grammars
 ----------------------
 
-.. commento
+In questo caso le regole di produzione a sinistra possono avere un singolo 
+non terminale, con la forma  <A> :: = α, dove <A>  e α sono non terminali, ma 
+α contiene almeno un terminale.
+
+Ad esempio, può essere:
+
+  <expr> ::= <expr> * <term>
+ 
+dove il simbolo "*" è un terminale.
+
+Queste grammatiche corrispondono alle grammatiche BNF.
 
   
 .. index:: regular grammars
@@ -159,11 +177,47 @@ produzione che a destra:
 * hanno un *terminale*,
 * oppure un *terminale* seguito da un *non terminale*.
 
-Ovvero regole del tipo: 
+cioè come segue:
 
-* '\ <A> ::= a'\ ;
-* oppure '\ <A> ::= a<A>'\ .
+* <A> ::= a ;
+* oppure <A> ::= a <A>.
 
+
+.. index:: semantics
+
+.. _ref_semantics:
+
+Semantics
+-----------
+
+Come accennato nei linguaggi formali, la semantica ([WIKI2019c]_) consiste nell'assegnare
+un significato alle frasi sintatticamente valide.
+
+Esistono fondamentalmente tre diversi approcci per effettuare questa operazione
+in modo formale:
+
+* usando gli *assiomi* (*axiomatic semantics* [WIKI2019d]_);
+* usando le *denotazioni* (*denotational semantics* [WIKI2019e]_);
+* usando l'induzione sulle operazioni (*operational semantics* [WIKI2019f]_), che a sua volta può
+  essere suddivisa in due aree:
+
+  * *structural operational semantics* ([WIKI2019g]_, [ACFV2005]_ e [PLOT1981]_), e
+  * *natural semantics* ([WIKI2019h]_).
+
+L'approccio **axiomatic semantics** definisce il significato di una frase tramite 
+affermazioni logiche (formali), ovvero predicati con variabili.
+
+La **denotational semantics** assegna alla frase dei costrutti matematici (ad es.
+insiemistici) che ne esplicitano il significato. E\ ``'`` possibile osservare un
+esempio di applicazione di *denotational semantics* alla :ref:`interpretazione
+delle espressioni regolari <ref_r_e_by_denotational_semantics>`.
+
+La *operational semantics* assegna alla frase delle regole di induzione dalle quali derivare
+il significato. Se nel fare questa operazione, si opera su ogni singolo costituente del 
+discorso, allora si usa la *structural operational semantics*; invece se si astrae dai singoli
+costituenti, per arrivare direttamente al significato finale, si è applicata la *natural semantics*.
+Si può osservare un esempio d'uso di *structural operational semantics* nel capitolo relativo alla 
+:ref:`interpretazione del CCS tramite la SOS <ref_CCS_by_operational_semantics>`.
 
 
 .. index:: deterministic finite automaton
@@ -238,6 +292,18 @@ L’insieme formato da *a* e dai suoi equivalenti é la classe di equivalenza de
 
 Vedi [GASP1977]_ pag.12, oppure, informalmente,
 `questo link <https://luciano.defalcoalfano.it/general-algebra/1-operazioni_tra_insiemi.html#insieme-quoziente>`_.
+
+
+.. index:: rgda arbiter
+
+.. _ref_rgda_arbiter:
+
+RGDA arbiter
+------------------
+
+Un arbitro RGDA (Request Grant Done e Acknowledge, vedi [EDIS1998]_ e [SABL1994]_) è un componente
+che controlla l'utilizzo di una risorsa condivisa permettendone l'accesso esclusivo
+a un singolo processo nell'ambito di un gruppo di processi contendenti.
 
 
 
