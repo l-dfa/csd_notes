@@ -138,7 +138,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'csd_appunti.tex', 'Complex systems design: appunti',
+    (master_doc, 'csd_appunti.tex', 'Complex systems design: theory',
      'luciano defalco alfano', 'manual', True),
 ]
 
