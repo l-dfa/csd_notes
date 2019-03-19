@@ -15,8 +15,9 @@
 Complex Systems Design, appunti 
 ================================
 
-Queste note sono gli appunti delle lezioni del corso **Complex systems design**,
-tenuto dal prof. *Flavio Corradini*, a.a. 2018-2019,
+Queste note sono gli appunti delle lezioni del corso
+`Complex systems design <https://didattica.unicam.it/Guide/PaginaADErogata.do?cod_lingua=ita&ad_er_id=2018*N0*N0*S2*14564*7550&ANNO_ACCADEMICO=2018&mostra_percorsi=S>`_,
+tenuto dal prof. `Flavio Corradini <https://docenti.unicam.it/pdett.aspx?ids=N&tv=d&UteId=556>`_, a.a. 2018-2019,
 alla `Scuola di Scienze e Tecnologia <http://sst.unicam.it/it>`_
 della `Università di Camerino <https://www.unicam.it/>`_.
 
